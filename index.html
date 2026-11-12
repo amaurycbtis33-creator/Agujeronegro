@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agujeros Negros | Misterios del Universo</title>
+    <style>
+        /* --- CONFIGURACIÓN GENERAL Y VARIABLES --- */
+        :root {
+            --bg-espacio: #06070d;
+            --bg-secundario: #0d101c;
+            --bg-tarjeta: rgba(22, 27, 46, 0.7);
+            --acento-naranja: #ff7b00;
+            --acento-dorado: #ffb703;
+            --acento-purpura: #7b2cbf;
+            --texto-claro: #f1f5f9;
+            --texto-suave: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-espacio);
+            color: var(--texto-claro);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* --- PORTADA (HERO) --- */
+        .portada {
+            height: 100vh;
+            background: 
+                radial-gradient(circle at center, rgba(255, 123, 0, 0.15) 0%, rgba(6, 7, 13, 0.9) 70%),
+                url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .portada div {
+            max-width: 800px;
+            background: rgba(6, 7, 13, 0.65);
+            backdrop-filter: blur(8px);
+            padding: 50px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 183, 3, 0.25);
+            box-shadow: 0 0 60px rgba(255, 123, 0, 0.2);
+        }
+
+        .portada h2 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: 6px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ffffff, var(--acento-dorado), var(--acento-naranja));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .portada p {
+            font-size: 1.2rem;
+            color: var(--texto-claro);
+            margin-bottom: 35px;
+        }
+
+        .boton {
+            display: inline-block;
+            padding: 14px 38px;
+            background: linear-gradient(45deg, var(--acento-naranja), var(--acento-dorado));
+            color: #06070d;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.5);
+        }
+
+        .boton:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 35px rgba(255, 183, 3, 0.8);
+        }
+
+        /* --- MARQUESINAS --- */
+        .marquesina {
+            background: linear-gradient(90deg, #110d24, #241038, #110d24);
+            color: var(--acento-dorado);
+            padding: 12px 0;
+            font-weight: 600;
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(123, 44, 191, 0.4);
+            border-bottom: 1px solid rgba(123, 44, 191, 0.4);
+            font-size: 0.95rem;
+        }
+
+        /* --- SECCIONES GENERALES --- */
+        section {
+            padding: 80px 10%;
+        }
+
+        section.gris {
+            background-color: var(--bg-secundario);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        section h2 {
+            font-size: 2.3rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        section h2::after {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--acento-naranja), var(--acento-purpura));
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        section > p {
+            max-width: 800px;
+            margin: 0 auto 25px;
+            color: var(--texto-suave);
+            font-size: 1.08rem;
+            text-align: center;
+        }
+
+        .imagen-grande {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            height: 400px;
+            object-fit: cover;
+            margin: 35px auto;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 183, 3, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        /* --- CONTENEDOR Y TARJETAS --- */
+        .contenedor {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            margin-top: 45px;
+        }
+
+        .tarjeta {
+            background: var(--bg-tarjeta);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-10px);
+            border-color: var(--acento-naranja);
+            box-shadow: 0 12px 30px rgba(255, 123, 0, 0.18);
+        }
+
+        .tarjeta img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+
+        .tarjeta h3 {
+            color: var(--acento-dorado);
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta p {
+            color: var(--texto-suave);
+            font-size: 0.98rem;
+        }
+
+        /* --- LISTA DE DATOS INTERESANTES --- */
+        ul {
+            max-width: 750px;
+            margin: 0 auto 60px;
+            list-style: none;
+        }
+
+        ul li {
+            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 12px;
+            padding: 15px 22px;
+            border-radius: 10px;
+            border-left: 4px solid var(--acento-naranja);
+            color: var(--texto-claro);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        ul li:hover {
+            background: rgba(255, 123, 0, 0.1);
+            transform: translateX(6px);
+        }
+
+        ul li::before {
+            content: "✦ ";
+            color: var(--acento-dorado);
+            margin-right: 8px;
+        }
+
+        /* --- TABLA --- */
+        .tabla-contenedor {
+            overflow-x: auto;
+            max-width: 900px;
+            margin: 30px auto 0;
+            border-radius: 14px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #111629;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        tr:first-child th {
+            background: linear-gradient(90deg, var(--acento-purpura), #3c096c);
+            color: #ffffff;
+            text-align: center;
+            font-size: 1.15rem;
+            letter-spacing: 1.5px;
+        }
+
+        tr:nth-child(2) th {
+            background-color: #192038;
+            color: var(--acento-dorado);
+        }
+
+        td {
+            color: var(--texto-claro);
+        }
+
+        tr:hover td {
+            background-color: rgba(255, 183, 3, 0.05);
+        }
+
+        /* --- FORMULARIO DE CONTACTO --- */
+        form {
+            max-width: 600px;
+            margin: 35px auto 0;
+            background: var(--bg-tarjeta);
+            padding: 35px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--acento-dorado);
+            font-size: 0.95rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background-color: #080a12;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--acento-naranja);
+            box-shadow: 0 0 12px rgba(255, 123, 0, 0.3);
+        }
+
+        button[type="submit"] {
+            margin-top: 10px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, var(--acento-naranja), var(--acento-dorado));
+            color: #06070d;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 123, 0, 0.45);
+        }
+
+        /* --- PIE DE PÁGINA --- */
+        footer {
+            background-color: #030408;
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--texto-suave);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 6%;
+            }
+            .imagen-grande {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA -->
+    <div class="portada" id="inicio">
+        <div>
+            <h2>AGUJEROS NEGROS</h2>
+            <p>
+                Descubre uno de los fenómenos más sorprendentes
+                y misteriosos que existen en el universo.
+            </p>
+            <a href="#contenido" class="boton">Explorar</a>
+        </div>
+    </div>
+
+    <!-- MARQUESINA 1 -->
+    <marquee class="marquesina" behavior="alternate">
+        ✦ El universo está lleno de misterios por descubrir ✦
+    </marquee>
+
+    <!-- ¿QUÉ SON? -->
+    <section id="contenido">
+        <h2>¿Qué son los agujeros negros?</h2>
+        <p>
+            Los agujeros negros son regiones del espacio donde la gravedad
+            es tan intensa que nada puede escapar de ellas, ni siquiera
+            la luz. Se forman cuando una gran cantidad de materia queda
+            concentrada en un espacio muy pequeño.
+        </p>
+
+        <p>
+            Aunque no podemos observarlos directamente porque no emiten
+            luz, los científicos pueden estudiarlos por los efectos que
+            producen en los objetos que se encuentran cerca de ellos.
+        </p>
+
+        <img class="imagen-grande"
+        src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=80"
+        alt="Imagen del espacio y las estrellas">
+        <p>
+            Su límite se conoce como horizonte de sucesos. Una vez que
+            algo cruza ese límite, ya no puede regresar al exterior.
+        </p>
+    </section>
+
+    <!-- FORMACIÓN -->
+    <section class="gris" id="formacion">
+        <h2>¿Cómo se forman?</h2>
+
+        <p>
+            Muchos agujeros negros se forman cuando una estrella muy
+            masiva llega al final de su vida. Al quedarse sin combustible,
+            su núcleo puede colapsar debido a su propia gravedad.
+        </p>
+
+        <div class="contenedor">
+
+            <div class="tarjeta">
+                <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=700&q=80"
+                alt="Estrellas en el universo">
+                <h3>1. La estrella</h3>
+                <p>
+                    Una estrella masiva produce energía durante millones
+                    de años.
+                </p>
+            </div>
+            <div class="tarjeta">
+                <img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=700&q=80"
+                alt="Espacio profundo">
+                <h3>2. Colapso</h3>
+                <p>
+                    Cuando termina su combustible, su núcleo puede
+                    contraerse por efecto de la gravedad.
+                </p>
+            </div>
+
+            <div class="tarjeta">
+                <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=700&q=80"
+                alt="Galaxia">
+                <h3>3. Agujero negro</h3>
+                <p>
+                    Si el núcleo tiene suficiente masa, puede convertirse
+                    en un agujero negro.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TIPOS -->
+    <section id="tipos">
+        <h2>Tipos de agujeros negros</h2>
+        <p>
+            Los científicos clasifican los agujeros negros de acuerdo
+            con su masa y sus características.
+        </p>
+
+        <div class="contenedor">
+
+            <div class="tarjeta">
+                <h3>Estelares</h3>
+                <p>
+                    Se forman a partir del colapso de estrellas muy
+                    masivas y tienen varias veces la masa del Sol.
+                </p>
+            </div>
+
+            <div class="tarjeta">
+                <h3>Supermasivos</h3>
+                <p>
+                    Tienen millones o incluso miles de millones de veces
+                    la masa del Sol. Se encuentran en centros de galaxias.
+                </p>
+            </div>
+
+            <div class="tarjeta">
+                <h3>De masa intermedia</h3>
+                <p>
+                    Son más grandes que los estelares, pero más pequeños
+                    que los supermasivos.
+                </p>
+            </div>
+            <div class="tarjeta">
+                <h3>Primordiales</h3>
+                <p>
+                    Son objetos hipotéticos que pudieron haberse formado
+                    durante los primeros momentos del universo.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INFORMACIÓN ADICIONAL -->
+    <section class="gris" id="informacion">
+        <h2>Datos interesantes</h2>
+
+        <ul>
+            <li>Los agujeros negros no son aspiradoras cósmicas.</li>
+            <li>La gravedad cerca de ellos puede ser extremadamente intensa.</li>
+            <li>La luz no puede escapar del horizonte de sucesos.</li>
+            <li>Existen agujeros negros en el centro de muchas galaxias.</li>
+            <li>El agujero negro supermasivo de nuestra galaxia se llama Sagitario A*.</li>
+        </ul>
+
+        <h2>Comparación de los tipos</h2>
+
+        <div class="tabla-contenedor">
+            <table>
+                <tr>
+                    <th colspan="3">CLASIFICACIÓN DE LOS AGUJEROS NEGROS</th>
+                </tr>
+
+                <tr>
+                    <th>Tipo</th>
+                    <th>Características</th>
+                    <th>Ubicación o posible origen</th>
+                </tr>
+
+                <tr>
+                    <td>Estelar</td>
+                    <td>Varias veces la masa del Sol</td>
+                    <td rowspan="2">Relacionados con estrellas y su evolución</td>
+                </tr>
+
+                <tr>
+                    <td>Intermedio</td>
+                    <td>Masa entre estelar y supermasiva</td>
+                </tr>
+
+                <tr>
+                    <td>Supermasivo</td>
+                    <td>Millones o miles de millones de masas solares</td>
+                    <td>Centro de muchas galaxias</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- MARQUESINA 2 -->
+    <marquee class="marquesina" direction="right" scrollamount="5">
+        ✧ Mira hacia las estrellas, siempre hay algo nuevo por descubrir ✧
+    </marquee>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <h2>Contacto</h2>
+
+        <p style="text-align:center;">
+            ¿Te interesa conocer más sobre el universo?
+            Déjanos tu comentario.
+        </p>
+
+        <form onsubmit="enviarFormulario(event)">
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" placeholder="Escribe tu nombre" required>
+
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" placeholder="Escribe tu correo" required>
+            <label for="tema">Tema de interés:</label>
+            <select id="tema" required>
+                <option value="">Selecciona un tema</option>
+                <option>Agujeros negros</option>
+                <option>Estrellas</option>
+                <option>Galaxias</option>
+                <option>El universo</option>
+            </select>
+
+            <label for="mensaje">Comentario:</label>
+            <textarea id="mensaje" rows="5"
+            placeholder="Escribe tu comentario..." required></textarea>
+            <button type="submit">Enviar comentario</button>
+
+        </form>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p>© 2026 Explorando el Cosmos — Proyecto sobre Agujeros Negros</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function enviarFormulario(event) {
+            event.preventDefault();
+
+            let nombre = document.getElementById("nombre").value;
+
+            alert("¡Gracias por tu comentario, " + nombre + "!");
+
+            document.querySelector("form").reset();
+        }
+    </script>
+
+</body>
+</html>
